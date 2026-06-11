@@ -8,6 +8,9 @@ jobs:
       - name: Install Theos
         run: |
           bash -c "$(curl -fsSL https://raw.githubusercontent.com/theos/theos/master/bin/install-theos)"
+          mkdir -p $THEOS/sdks
+          curl -LO https://github.com/theos/sdks/raw/master/iPhoneOS10.3.sdk.tar.xz
+          tar -xf iPhoneOS10.3.sdk.tar.xz -C $THEOS/sdks
       - name: Build
         run: |
           export THEOS=/opt/theos
