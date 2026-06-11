@@ -7,19 +7,15 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Theos
         run: |
-          # Installation basique sans le script qui plante
           export THEOS=/opt/theos
           sudo mkdir -p $THEOS
           sudo chown -R $USER $THEOS
           git clone --recursive https://github.com/theos/theos.git $THEOS
-          # Installation manuelle du SDK
-          mkdir -p $THEOS/sdks
-          curl -LO https://github.com/theos/sdks/raw/master/iPhoneOS10.3.sdk.tar.xz
-          tar -xf iPhoneOS10.3.sdk.tar.xz -C $THEOS/sdks
       - name: Build
         run: |
           export THEOS=/opt/theos
-          make SDKVERSION=10.3
+          # On laisse make se débrouiller sans forcer le SDK 10.3 pour l'instant
+          make
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
