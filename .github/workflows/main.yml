@@ -1,0 +1,19 @@
+name: Build iOS IPA
+on: [push]
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Theos
+        run: |
+          bash -c "$(curl -fsSL https://raw.githubusercontent.com/theos/theos/master/bin/install-theos)"
+      - name: Build
+        run: |
+          export THEOS=/opt/theos
+          make SDKVERSION=10.3
+      - name: Upload IPA
+        uses: actions/upload-artifact@v2
+        with:
+          name: Snake-IPA
+          path: packages/*.ipa
