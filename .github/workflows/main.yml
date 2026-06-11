@@ -14,10 +14,11 @@ jobs:
       - name: Build
         run: |
           export THEOS=/opt/theos
-          # On laisse make se débrouiller sans forcer le SDK 10.3 pour l'instant
+          # Assure-toi que 'snake' est bien le nom du dossier où est ton Makefile
+          cd snake
           make
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
           name: Snake-IPA
-          path: packages/*.ipa
+          path: snake/packages/*.ipa
